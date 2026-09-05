@@ -1,13 +1,11 @@
 from pydantic import BaseModel, EmailStr
 
-
 class EmployeeCreate(BaseModel):
     name: str
     email: EmailStr
     department: str
     role: str
     experience: float = 0
-
 
 class EmployeeResponse(BaseModel):
     id: int
@@ -20,7 +18,6 @@ class EmployeeResponse(BaseModel):
     class Config:
         from_attributes = True
 
-
 class CompetencyResponse(BaseModel):
     id: int
     name: str
@@ -29,7 +26,6 @@ class CompetencyResponse(BaseModel):
 
     class Config:
         from_attributes = True
-
 
 class EmployeeCompetencyResponse(BaseModel):
     competency: CompetencyResponse
@@ -41,7 +37,6 @@ class AssessmentCreate(BaseModel):
     competency_id: int
     score: float
     total_questions: int
-
 
 class AssessmentResponse(BaseModel):
     id: int
@@ -57,7 +52,6 @@ class AssessmentResponse(BaseModel):
 class QuizAnswer(BaseModel):
     question_id: int
     answer: str
-
 
 class QuizAttemptCreate(BaseModel):
     employee_id: int
