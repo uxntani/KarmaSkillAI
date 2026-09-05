@@ -15,10 +15,7 @@ Base.metadata.create_all(bind=engine)
 
 db = SessionLocal()
 
-
-# -------------------------------------------------
 # Clear existing data
-# -------------------------------------------------
 
 db.query(CourseCompetency).delete()
 db.query(EmployeeCompetency).delete()
@@ -29,9 +26,7 @@ db.query(Competency).delete()
 db.commit()
 
 
-# -------------------------------------------------
 # Competencies
-# -------------------------------------------------
 
 competencies = [
 
@@ -76,9 +71,7 @@ for competency in competencies:
     db.refresh(competency)
 
 
-# -------------------------------------------------
 # Employee
-# -------------------------------------------------
 
 employee = Employee(
     name="Rahul Sharma",
@@ -93,9 +86,7 @@ db.commit()
 db.refresh(employee)
 
 
-# -------------------------------------------------
 # Employee Competencies
-# -------------------------------------------------
 
 levels = {
     "Data Analysis": (72, 85),
@@ -120,9 +111,7 @@ for competency in competencies:
     )
 
 
-# -------------------------------------------------
 # Courses
-# -------------------------------------------------
 
 courses = [
 
@@ -177,9 +166,7 @@ for course in courses:
     db.refresh(course)
 
 
-# -------------------------------------------------
 # Course → Competency mapping
-# -------------------------------------------------
 
 competency_map = {
     "Advanced Statistical Reasoning": {
