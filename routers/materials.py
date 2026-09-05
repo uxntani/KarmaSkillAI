@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 
 from models import (
     LearningMaterial,
+    MaterialCompetency,
     Quiz,
     QuizQuestion,
     Competency
@@ -286,6 +287,7 @@ async def analyze_and_save_material(
     db.add(material)
     db.commit()
     db.refresh(material)
+    
 
     # -----------------------------
     # 5. Determine primary competency
@@ -295,12 +297,34 @@ async def analyze_and_save_material(
         "competencies",
         []
     )
+    # -----------------------------------------------------
+    # Save AI competency analysis
+    # -----------------------------------------------------
 
-    primary_competency = None
+    for detected in detected_competencies:
+        competency = (
+        db.query(Competency)
+        .filter(
+            Competency.name == detected["name"]
+        )
+        .first()
+    )
+        if not competency:
+            continue
 
-    if detected_competencies:
+        material_competency = MaterialCompetency(
+        material_id=material.id,
+        competency_id=competency.id,
+        relevance=detected["relevance"]
+    )
 
-        highest = max(
+        db.add(material_competency)
+        db.commit()
+        primary_competency = None
+
+        if detected_competencies:
+
+            highest = max(
             detected_competencies,
             key=lambda x: x["relevance"]
         )

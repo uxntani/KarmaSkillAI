@@ -142,6 +142,27 @@ class LearningMaterial(Base):
     extracted_text = Column(Text, nullable=False)
     pages = Column(Integer, default=0)
 
+class MaterialCompetency(Base):
+    __tablename__ = "material_competencies"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    material_id = Column(
+        Integer,
+        ForeignKey("learning_materials.id"),
+        nullable=False
+    )
+
+    competency_id = Column(
+        Integer,
+        ForeignKey("competencies.id"),
+        nullable=False
+    )
+
+    relevance = Column(Float, nullable=False)
+
+    material = relationship("LearningMaterial")
+    competency = relationship("Competency")
 
 class Quiz(Base):
     __tablename__ = "quizzes"
