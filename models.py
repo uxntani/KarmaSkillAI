@@ -1,8 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Text
 from sqlalchemy.orm import relationship
-
 from database import Base
-
 
 class Employee(Base):
     __tablename__ = "employees"
@@ -21,7 +19,6 @@ class Employee(Base):
         cascade="all, delete-orphan"
     )
 
-
 class Competency(Base):
     __tablename__ = "competencies"
 
@@ -35,7 +32,6 @@ class Competency(Base):
         "EmployeeCompetency",
         back_populates="competency"
     )
-
 
 class EmployeeCompetency(Base):
     __tablename__ = "employee_competencies"
@@ -67,7 +63,6 @@ class EmployeeCompetency(Base):
         back_populates="employee_competencies"
     )
 
-
 class Course(Base):
     __tablename__ = "courses"
 
@@ -79,7 +74,6 @@ class Course(Base):
     duration = Column(Integer)
 
     content = Column(Text)
-
 
 class CourseCompetency(Base):
     __tablename__ = "course_competencies"
@@ -120,7 +114,6 @@ class Role(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, nullable=False)
     description = Column(Text)
-
 
 class RoleCompetency(Base):
     __tablename__ = "role_competencies"
@@ -183,7 +176,6 @@ class Quiz(Base):
         cascade="all, delete-orphan"
     )
 
-
 class QuizQuestion(Base):
     __tablename__ = "quiz_questions"
 
@@ -218,7 +210,6 @@ class QuizQuestion(Base):
     )
 
     competency = relationship("Competency")
-
 
 class QuizAttempt(Base):
     __tablename__ = "quiz_attempts"
